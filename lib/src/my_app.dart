@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fulltimeforce_app/src/ui/theme/app_theme.dart';
 
 import 'features/home/ui/screens/home_screen.dart';
 
@@ -10,10 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FullTimeForce',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.themeData(),
       home: const HomeScreen(),
     );
   }

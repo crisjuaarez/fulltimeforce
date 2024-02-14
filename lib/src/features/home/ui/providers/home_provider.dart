@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +12,8 @@ class HomeProvider with ChangeNotifier {
 
   HomeProvider({required this.commitsRepository});
 
-  List<CommitsResponseModel> _commits = [];
-  List<CommitsResponseModel> get commits => _commits;
+  List<GetCommitsResponse> _commits = [];
+  List<GetCommitsResponse> get commits => _commits;
 
   Failure? _commitsFailure;
   Failure? get commitsFailure => _commitsFailure;
@@ -24,14 +26,34 @@ class HomeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void filterCommitsByDate() {
-    _commits.sort(
-      (a, b) => b.commit.author.date.compareTo(a.commit.author.date),
-    );
+  void searchCommits(String value) {
+    _commits = _commits
+        .where((element) =>
+            element.commit.message.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    log('Commits: ${_commits.length}');
     notifyListeners();
   }
 
-  Future<Either<Failure, List<CommitsResponseModel>>> getCommits({
+  void filterCommitsByDate({bool ascending = false}) {
+    !ascending
+        ? _commits.sort(
+            (a, b) => a.commit.author.date.compareTo(b.commit.author.date),
+          )
+        : _commits.sort(
+            (a, b) => b.commit.author.date.compareTo(a.commit.author.date),
+          );
+    notifyListeners();
+  }
+
+  bool _isGridList = false;
+  bool get isGridList => _isGridList;
+  void toggleGridList() {
+    _isGridList = !_isGridList;
+    notifyListeners();
+  }
+
+  Future<Either<Failure, List<GetCommitsResponse>>> getCommits({
     required String username,
     required String repoName,
   }) async {
@@ -46,6 +68,7 @@ class HomeProvider with ChangeNotifier {
         _commitsFailure = failure;
       },
       (data) {
+        _commitsFailure = null;
         _commits = data;
       },
     );

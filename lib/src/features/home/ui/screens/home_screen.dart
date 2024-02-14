@@ -1,5 +1,8 @@
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
+import 'package:fulltimeforce_app/src/features/home/ui/screens/widgets/grid_list_commits.dart';
+import 'package:fulltimeforce_app/src/features/home/ui/screens/widgets/search_fab.dart';
+import 'package:fulltimeforce_app/src/ui/widgets/common/my_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../ui/utils/app_alerts.dart';
@@ -7,7 +10,6 @@ import '../../../../ui/widgets/animation/my_loading.dart';
 import '../../../shared/domain/entities/failure.dart';
 import '../../domain/entities/get_commits_response_entity.dart';
 import '../providers/home_provider.dart';
-import 'widgets/commit_widget.dart';
 import 'widgets/home_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,8 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: const HomeAppBar(),
+      floatingActionButton: const SearchFab(),
       body: RefreshIndicator.adaptive(
         onRefresh: _onRefresh,
         child: Consumer<HomeProvider>(
@@ -36,13 +40,34 @@ class _HomeScreenState extends State<HomeScreen> {
             final failure = notifier.commitsFailure;
 
             if (notifier.isLoading) return const MyLoading();
-            if (failure != null) return Center(child: Text(failure.message));
+            if (failure != null) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        failure.message,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    MyButton(onPressed: _getCommits, text: 'Refresh'),
+                  ],
+                ),
+              );
+            }
             if (commits.isEmpty) return const Center(child: Text('No commits'));
 
-            return ListView.separated(
-              itemCount: commits.length,
-              itemBuilder: (_, i) => CommitWidget(commit: commits[i]),
-              separatorBuilder: (_, i) => const Divider(),
+            return SizedBox(
+              width: size.width,
+              height: size.height,
+              child: GridListCommits(commits: commits),
             );
           },
         ),
@@ -63,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<dartz.Either<Failure, List<CommitsResponseModel>>> _getCommits() {
+  Future<dartz.Either<Failure, List<GetCommitsResponse>>> _getCommits() {
     return context.read<HomeProvider>().getCommits(
           username: 'crisjuaarez',
           repoName: 'fulltimeforce',

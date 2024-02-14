@@ -6,13 +6,14 @@ import '../../../shared/domain/entities/failure.dart';
 import '../../domain/entities/get_commits_response_entity.dart';
 import '../../domain/repositories/commits_repository.dart';
 import '../data_sources/commits_data_source.dart';
+import '../models/get_commits_response_model.dart';
 
 class CommitsRepositoryImpl implements CommitsRepository {
   final CommitsDataSource dataSource;
   const CommitsRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure, List<CommitsResponseModel>>> getCommits({
+  Future<Either<Failure, List<GetCommitsResponse>>> getCommits({
     required String username,
     required String repoName,
   }) async {
@@ -21,7 +22,7 @@ class CommitsRepositoryImpl implements CommitsRepository {
       if (response.statusCode == 200) {
         return Right(
           (jsonDecode(response.body) as List)
-              .map((commit) => CommitsResponseModel.fromJson(commit))
+              .map((commit) => GetCommitsResponseModel.fromJson(commit))
               .toList(),
         );
       }

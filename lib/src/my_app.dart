@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/local_storage/app_preferences.dart';
 import 'features/home/data/data_sources/commits_data_source.dart';
 import 'features/home/data/repositories/commits_repository_impl.dart';
 import 'features/home/ui/providers/home_provider.dart';
 import 'features/home/ui/screens/home_screen.dart';
+import 'features/intro/intro_screen.dart';
 import 'features/shared/ui/providers/theme_provider.dart';
 import 'ui/theme/app_theme.dart';
 
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'FullTimeForce',
           theme: AppTheme.themeData(isDark: theme.isDark),
-          home: const HomeScreen(),
+          home: AppPreferences.getFirstTime()
+              ? const IntroScreen()
+              : const HomeScreen(),
         ),
       ),
     );
@@ -39,5 +43,5 @@ final _providers = [
       commitsRepository: context.read<CommitsRepositoryImpl>(),
     ),
   ),
-  ChangeNotifierProvider(create: (_) => ThemeProvider()),
+  ChangeNotifierProvider(create: (_) => ThemeProvider()..init()),
 ];

@@ -1,46 +1,67 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/helpers/app_helpers.dart';
 import '../../../home/domain/entities/get_commits_response_entity.dart';
 import '../widgets/detail_sliver_app_bar.dart';
 import '../widgets/launch_tile.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key, required this.commit});
-  final CommitsResponseModel commit;
+  final GetCommitsResponse commit;
 
   @override
   Widget build(BuildContext context) {
+    final mCommit = commit.commit;
     return Scaffold(
       body: NestedScrollView(
-        headerSliverBuilder: (_, __) => [
-          DetailSliverAppBar(commit: commit),
-        ],
+        headerSliverBuilder: (_, __) => [DetailSliverAppBar(commit: commit)],
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const LaunchTile(
-                title: 'Go to repositories',
-                subtitle: 'S',
+              Row(
+                children: [
+                  Expanded(
+                    child: DetailItem(
+                      title: 'Author',
+                      subtitle: mCommit.author.name,
+                    ),
+                  ),
+                  Expanded(
+                    child: DetailItem(
+                      title: 'Email',
+                      subtitle: mCommit.author.email,
+                    ),
+                  ),
+                ],
               ),
-              LaunchTile(
-                title: 'Go to commits',
-                url: commit.author.url,
+              DetailItem(title: 'Message', subtitle: mCommit.message),
+              Row(
+                children: [
+                  Expanded(
+                    child: DetailItem(
+                      title: 'Date',
+                      subtitle: AppHelpers.dateToString(mCommit.author.date),
+                    ),
+                  ),
+                  Expanded(
+                    child: DetailItem(
+                      title: 'Time',
+                      subtitle: AppHelpers.dateToTimeString(
+                        mCommit.author.date,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              LaunchTile(
-                title: 'Go to issues',
-                url: commit.author.gistsUrl,
+              DetailItem(
+                title: 'Sha',
+                subtitle: commit.sha,
+                textToCopy: commit.sha,
               ),
-              LaunchTile(
-                title: 'Go to events',
-                url: commit.author.eventsUrl,
-              ),
-              LaunchTile(
-                title: 'Go to followers',
-                url: commit.author.followersUrl,
-              ),
-              LaunchTile(
-                title: 'Go to following',
-                url: commit.author.followingUrl,
+              DetailItem(
+                title: 'Commit url',
+                subtitle: 'Go to Github',
+                url: commit.htmlUrl,
               ),
             ],
           ),

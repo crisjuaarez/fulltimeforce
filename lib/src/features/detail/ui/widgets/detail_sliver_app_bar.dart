@@ -5,7 +5,7 @@ import '../../../home/domain/entities/get_commits_response_entity.dart';
 class DetailSliverAppBar extends StatelessWidget {
   const DetailSliverAppBar({super.key, required this.commit});
 
-  final CommitsResponseModel commit;
+  final GetCommitsResponse commit;
 
   @override
   Widget build(BuildContext context) {

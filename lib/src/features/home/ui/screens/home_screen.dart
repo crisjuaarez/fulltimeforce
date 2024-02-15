@@ -35,11 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: RefreshIndicator.adaptive(
         onRefresh: _onRefresh,
         child: Consumer<HomeProvider>(
+          key: const Key('commits_consumer'),
           builder: (_, notifier, __) {
             final commits = notifier.commits;
             final failure = notifier.commitsFailure;
 
-            if (notifier.isLoading) return const MyLoading();
+            if (notifier.isLoading) {
+              return const MyLoading(key: Key('commits_loading'));
+            }
             if (failure != null) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -57,7 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    MyButton(onPressed: _getCommits, text: 'Refresh'),
+                    MyButton(
+                      onPressed: _getCommits,
+                      text: 'Refresh',
+                      key: const Key('refresh_button'),
+                    ),
                   ],
                 ),
               );

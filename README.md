@@ -1,16 +1,41 @@
-# fulltimeforce_app
+# FullTimeForce App
 
-A new Flutter project.
+![GitHub](https://img.shields.io/github/license/crisjuaarez/fulltimeforce_app)
+![GitHub last commit](https://img.shields.io/github/last-commit/crisjuaarez/fulltimeforce_app)
+![GitHub repo size](https://img.shields.io/github/repo-size/crisjuaarez/fulltimeforce_app)
 
-## Getting Started
+This is the repository for the FullTimeForce (Technical Task) application, a Flutter application for managing commits in GitHub repositories.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Displays commits from a GitHub repository.
+- Allows switching between list view and grid view.
+- Dark and light themes.
+- Allows to search commits
+- Allows to order the commits by ascending or descending
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Prerequisites
+
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+
+### Installation Steps
+
+1. Clone this repository:
+
+git clone https://github.com/crisjuaarez/fulltimeforce_app.git
+
+2. Navigate to the project directory:
+cd fulltimeforce_app
+
+3. Get dependencies 
+flutter pub get
+
+4. Run the application:
+flutter run
+
+To run tests, use the following command:
+flutter test
+
+
+

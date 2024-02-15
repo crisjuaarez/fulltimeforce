@@ -24,6 +24,7 @@ class GridListCommits extends StatelessWidget {
           ),
           child: notifier.isGridList
               ? GridView.builder(
+                  key: const Key('grid_list_commits'),
                   itemCount: commits.length,
                   padding: const EdgeInsets.all(12),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -35,6 +36,7 @@ class GridListCommits extends StatelessWidget {
                   itemBuilder: (_, i) => CommitWidget(commit: commits[i]),
                 )
               : ListView.separated(
+                  key: const Key('list_commits'),
                   itemCount: commits.length,
                   // shrinkWrap: true,
                   padding: const EdgeInsets.all(12),

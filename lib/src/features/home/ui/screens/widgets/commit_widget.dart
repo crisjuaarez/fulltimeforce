@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fulltimeforce_app/src/ui/widgets/common/my_image_network.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/helpers/app_helpers.dart';
@@ -21,6 +22,7 @@ class CommitWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Consumer<HomeProvider>(
+      key: const Key('commit_widget'),
       builder: (_, notifier, __) {
         if (notifier.isGridList) {
           return GestureDetector(
@@ -62,9 +64,9 @@ class CommitWidget extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Hero(
-                      tag: commit.nodeId,
-                      child: Image.network(commit.author.avatarUrl),
+                    child: MyImageNetwork(
+                      heroTag: commit.nodeId,
+                      commit.author.avatarUrl,
                     ),
                   ),
                 ),
@@ -83,9 +85,9 @@ class CommitWidget extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: ClipOval(
-              child: Hero(
-                tag: commit.nodeId,
-                child: Image.network(commit.author.avatarUrl),
+              child: MyImageNetwork(
+                commit.author.avatarUrl,
+                heroTag: commit.nodeId,
               ),
             ),
           ),

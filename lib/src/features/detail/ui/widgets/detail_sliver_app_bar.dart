@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../ui/widgets/common/my_image_network.dart';
 import '../../../home/domain/entities/get_commits_response_entity.dart';
 
 class DetailSliverAppBar extends StatelessWidget {
@@ -14,12 +15,10 @@ class DetailSliverAppBar extends StatelessWidget {
       title: Text(commit.commit.author.name),
       expandedHeight: size.height * 0.4,
       flexibleSpace: FlexibleSpaceBar(
-        background: Hero(
-          tag: commit.nodeId,
-          child: Image.network(
-            commit.author.avatarUrl,
-            fit: BoxFit.cover,
-          ),
+        background: MyImageNetwork(
+          commit.author.avatarUrl,
+          heroTag: commit.nodeId,
+          fit: BoxFit.cover,
         ),
       ),
     );

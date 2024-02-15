@@ -11,6 +11,7 @@ class SearchFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      key: const Key('search_fab'),
       backgroundColor: AppColors.primary,
       onPressed: () {
         final commits = context.read<HomeProvider>().commits;

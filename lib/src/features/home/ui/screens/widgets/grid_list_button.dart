@@ -9,6 +9,7 @@ class GridListButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      key: const Key('grid_list_button'),
       onPressed: () => context.read<HomeProvider>().toggleGridList(),
       icon: Consumer<HomeProvider>(
         builder: (_, notifier, __) => Icon(

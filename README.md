@@ -36,7 +36,7 @@ Example: Users can tap on a sorting button to change the order of commits, choos
 ### Installation Steps
 
 1. Clone this repository:
-git clone https://github.com/crisjuaarez/fulltimeforce_app.git
+git clone https://github.com/crisjuaarez/fulltimeforce.git
 
 2. Open the project on Visual Studio Code or Android Studio
 

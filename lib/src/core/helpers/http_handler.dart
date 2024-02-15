@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../constants/api_constants.dart';
 
 class HttpHandler {
-  static const _defaultHeaders = {
+  static final _defaultHeaders = {
     'Accept': 'application/vnd.github+json',
     'Authorization': 'Bearer ${ApiConstants.token}',
     'X-GitHub-Api-Version': '2022-11-28',

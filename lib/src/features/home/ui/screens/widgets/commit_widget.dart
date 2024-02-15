@@ -38,7 +38,7 @@ class CommitWidget extends StatelessWidget {
               child: GridTile(
                 header: Container(
                   padding: const EdgeInsets.all(8.0),
-                  color: Colors.white24,
+                  color: Colors.white54,
                   child: Text(
                     commit.commit.author.name,
                     style: style?.copyWith(
@@ -50,7 +50,7 @@ class CommitWidget extends StatelessWidget {
                 ),
                 footer: Container(
                   padding: const EdgeInsets.all(8.0),
-                  color: Colors.white24,
+                  color: Colors.white54,
                   child: Text(
                     '${mCommit.message}\n${AppHelpers.dateWithTimeToString(mCommit.committer.date)}',
                     style: style?.copyWith(color: Colors.black),
